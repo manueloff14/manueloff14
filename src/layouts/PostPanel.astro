@@ -1,0 +1,28 @@
+---
+import PostCard from "../components/PostCard.astro";
+
+interface Props {
+    posts: any[];
+}
+
+const { posts } = Astro.props;
+---
+
+<div id="panel-posts">
+    <br>
+    {posts.length > 0 ? (
+        posts.map((post) => (
+            <PostCard
+                id={post.id}
+                author={post.author}
+                authorImage={post.authorImage}
+                date={post.date}
+                postImage={post.postImage}
+                description={post.description}
+                likes={post.likes}
+            />
+        ))
+    ) : (
+        <p>No posts available</p>
+    )}
+</div>

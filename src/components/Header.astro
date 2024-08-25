@@ -1,0 +1,43 @@
+---
+import SocialLinks from "./SocialLinks.astro";
+---
+
+<header class="w-full lg:h-screen relative">
+    <div class="relative w-full h-auto">
+        <img
+            class="w-full h-full md:h-[300px] lg:h-full object-cover pb-2"
+            src="https://media.istockphoto.com/id/1170655400/es/foto/paisaje-de-monta%C3%B1a.webp?b=1&s=170667a&w=0&k=20&c=SDEZ2_XXPmh1raDhbF5zSPvjBrlXX4EgZLSt-aB1Zkw="
+            alt="Paisaje"
+        />
+        <div
+            class="absolute inset-0 bg-gradient-to-t from-[#1b1b1b] via-[#1b1b1b]/50 to-transparent"
+        >
+        </div>
+    </div>
+    <div
+        class="absolute bottom-[-250px] lg:bottom-[200px] xl:bottom-[190px] 2xl:bottom-[380px] left-1/2 transform -translate-x-1/2 flex flex-col items-center text-center w-full"
+    >
+        <img
+            class="w-[150px] lg:w-[150px] h-[150px] lg:h-[150px] rounded-full border-4 border-white object-cover"
+            src="/img/foto_jose_gelves.jpg"
+            alt="Jose Gelves"
+        />
+        <div class="flex items-center my-5">
+            <h1 class="text-lg lg:text-xl font-bold">Jose Gelves</h1>
+            <img
+                class="w-[20px] ml-2"
+                src="/icons/verify.svg"
+                alt="Verificado"
+            />
+        </div>
+        <div
+            id="btnDescription"
+            class="text-center px-[20px] lg:px-[40px] text-sm lg:text-base mb-5"
+        >
+            Passionate Front-End Developer. Crafting clean and efficient code. <span
+                class="text-blue-600">More.</span
+            >
+        </div>
+        <SocialLinks />
+    </div>
+</header>

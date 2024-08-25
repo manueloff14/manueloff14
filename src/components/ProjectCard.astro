@@ -1,0 +1,31 @@
+---
+export interface Props {
+    id: string;
+    github: string;
+    postImage: string; // Podrías renombrar esto a `projectImage` si lo prefieres
+}
+
+const { id, postImage, github } = Astro.props;
+---
+
+<a href={github}>
+    <div
+        data-project-id={`${id}`}
+        class="p-5 border border-gray-700 rounded-[20px] mb-5"
+    >
+        <div class="my-4 relative w-full">
+            <img
+                class="rounded-[30px] w-full"
+                id={`project-image-${id}`}
+                src={postImage}
+                alt="Project image"
+            />
+            <h2
+                class="absolute top-0 right-0 m-3 bg-black rounded-full p-2 px-6 border-2 text-sm"
+                id={`project-date-${id}`}
+            >
+                Github
+            </h2>
+        </div>
+    </div>
+</a>

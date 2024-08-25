@@ -1,0 +1,143 @@
+---
+import Layout from "../layouts/MainLayout.astro";
+import Header from "../components/Header.astro";
+import PostPanel from "../layouts/PostPanel.astro";
+import ProjectPanel from "../layouts/ProjectPanel.astro";
+import AboutPanel from "../layouts/AboutPanel.astro";
+import Menu from "../components/Menu.astro";
+import Footer from "../components/Footer.astro";
+
+let posts = [];
+let projects = [];
+
+async function loadData(type) {
+    console.log(`Starting to load ${type}...`);
+
+    try {
+        const response = await fetch(
+            "https://dyt.pythonanywhere.com/static/data/data.json",
+        );
+        const data = await response.json();
+        console.log(`Data fetched for ${type}:`, data);
+
+        return Object.entries(data).map(([id, item]) => ({
+            id,
+            ...item,
+        }));
+    } catch (err) {
+        console.error(`Failed to fetch ${type} data:`, err);
+        return [];
+    }
+}
+
+// Cargar los datos antes de renderizar la página
+posts = await loadData("posts");
+projects = await loadData("projects");
+
+console.log("Posts loaded:", posts);
+console.log("Projects loaded:", projects);
+---
+
+<Layout title="Jose Gelves">
+    <main class="lg:flex">
+        <aside class="bg-[#1b1b1b] z-[100] w-full lg:w-[330px] lg:fixed">
+            <Header />
+        </aside>
+        <div
+            class="w-full z-[10] p-7 pt-[260px] md:px-[100px] lg:ml-[330px] lg:px-[150px] lg:pt-0 xl:px-[250px]"
+        >
+            <Menu />
+            <div class="z-[10] space-y-8">
+                <PostPanel posts={posts} />
+                <ProjectPanel projects={projects} />
+                <AboutPanel />
+            </div>
+            <Footer />
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const buttons = {
+                btnAll: {
+                    element: document.getElementById("btnAll"),
+                    panel: document.getElementById("panel-posts"),
+                },
+                btnProjects: {
+                    element: document.getElementById("btnProjects"),
+                    panel: document.getElementById("panel-projects"),
+                },
+                btnAboutMe: {
+                    element: document.getElementById("btnAboutMe"),
+                    panel: document.getElementById("panel-aboutMe"),
+                },
+            };
+
+            // Función para activar el botón y mostrar el panel correspondiente
+            function activateButton(activeBtnKey) {
+                Object.entries(buttons).forEach(([key, { element, panel }]) => {
+                    if (element && panel) {
+                        if (key === activeBtnKey) {
+                            element.classList.add("bg-slate-900");
+                            panel.style.display = "block"; // Asegúrate de que solo este panel se muestre
+                        } else {
+                            element.classList.remove("bg-slate-900");
+                            panel.style.display = "none"; // Esconder los otros paneles
+                        }
+                    }
+                });
+            }
+
+            // Asignar eventos de clic a los botones
+            buttons.btnAll.element.addEventListener("click", () =>
+                activateButton("btnAll"),
+            );
+            buttons.btnProjects.element.addEventListener("click", () =>
+                activateButton("btnProjects"),
+            );
+            buttons.btnAboutMe.element.addEventListener("click", () =>
+                activateButton("btnAboutMe"),
+            );
+
+            // Obtener el div con id="btnDescription"
+            const btnDescription = document.getElementById("btnDescription");
+
+            // Asignar el evento de clic para que active el botón "About Me"
+            btnDescription.addEventListener("click", () => {
+                buttons.btnAboutMe.element.click(); // Simular un clic en el botón "About Me"
+            });
+
+            // Activar el primer panel por defecto (por ejemplo, el panel de posts)
+            activateButton("btnAll");
+        });
+    </script>
+
+    <script>
+        // Function to update likes periodically
+        async function updateLikes() {
+            try {
+                const response = await fetch(
+                    "https://dyt.pythonanywhere.com/static/data/data.json",
+                );
+                const data = await response.json();
+
+                Object.entries(data).forEach(([id, post]) => {
+                    const likesCountElement = document.getElementById(
+                        `likes-count-${id}`,
+                    );
+                    if (
+                        likesCountElement &&
+                        post.likes !== parseInt(likesCountElement.textContent)
+                    ) {
+                        likesCountElement.textContent = post.likes;
+                    }
+                });
+            } catch (err) {
+                console.error("Failed to update likes:", err);
+            }
+        }
+
+        // Call updateLikes every 5 seconds
+        setInterval(updateLikes, 5000);
+    </script>
+</Layout>

@@ -1,0 +1,23 @@
+---
+import ProjectCard from "../components/ProjectCard.astro";
+
+interface Props {
+    projects: any[];
+}
+
+const { projects } = Astro.props;
+---
+
+<div id="panel-projects">
+    {projects.length > 0 ? (
+        projects.map((project) => (
+            <ProjectCard
+                id={project.id}
+                postImage={project.postImage}
+                github={project.github}
+            />
+        ))
+    ) : (
+        <p>No projects available</p>
+    )}
+</div>
