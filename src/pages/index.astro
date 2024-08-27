@@ -15,7 +15,7 @@ async function loadData(type) {
 
     try {
         const response = await fetch(
-            "https://dyt.pythonanywhere.com/static/data/data.json",
+            "https://dyt.pythonanywhere.com/static/data/data.json"
         );
         const data = await response.json();
         console.log(`Data fetched for ${type}:`, data);
@@ -47,7 +47,7 @@ console.log("Projects loaded:", projects);
             class="w-full z-[10] p-7 pt-[260px] md:px-[100px] lg:ml-[330px] lg:px-[150px] lg:pt-0 xl:px-[250px]"
         >
             <Menu />
-            <div class="z-[10] space-y-8">
+            <div class="z-[10] space-y-8" id="content">
                 <PostPanel posts={posts} />
                 <ProjectPanel projects={projects} />
                 <AboutPanel />
@@ -55,6 +55,27 @@ console.log("Projects loaded:", projects);
             <Footer />
         </div>
     </main>
+
+    <script>
+        async function updatePanels() {
+            // Reemplazar completamente los datos de posts y projects
+            posts = await loadData("posts");
+            projects = await loadData("projects");
+    
+            console.log("Updating panels...");
+    
+            // Re-renderizar los paneles
+            const contentDiv = document.getElementById("content");
+    
+            contentDiv.innerHTML = `
+                ${PostPanel({ posts })}
+                ${ProjectPanel({ projects })}
+            `;
+        }
+    
+        // Llamar a updatePanels inmediatamente cuando se carga el script
+        updatePanels();
+    </script>    
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
@@ -78,10 +99,16 @@ console.log("Projects loaded:", projects);
                 Object.entries(buttons).forEach(([key, { element, panel }]) => {
                     if (element && panel) {
                         if (key === activeBtnKey) {
-                            element.classList.add("bg-slate-900");
+                            element.classList.add(
+                                "bg-blue-600",
+                                "border-white",
+                            );
                             panel.style.display = "block"; // Asegúrate de que solo este panel se muestre
                         } else {
-                            element.classList.remove("bg-slate-900");
+                            element.classList.remove(
+                                "bg-blue-600",
+                                "border-white",
+                            );
                             panel.style.display = "none"; // Esconder los otros paneles
                         }
                     }

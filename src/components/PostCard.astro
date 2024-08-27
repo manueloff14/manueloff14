@@ -14,25 +14,40 @@ const { id, author, authorImage, date, postImage, description, likes } =
 let currentLikes = likes;
 ---
 
-<div data-post-id={`${id}`} class="p-5 border border-gray-700 rounded-[20px] mb-5">
+<div
+    data-post-id={`${id}`}
+    class="p-5 border border-gray-700 rounded-[20px] mb-5"
+    id={`post-element-${id}`}
+>
     <div class="flex items-center">
-        <img class="w-[40px] rounded-full" id={`author-image-${id}`} src={authorImage} alt="Author" />
-        <div class="ml-2">
+        <img
+            class="w-[40px] h-[40px] rounded-full border-2 border-white object-cover"
+            id={`author-image-${id}`}
+            src={authorImage}
+            alt="Author"
+        />
+        <div class="ml-2 flex items-center">
             <h1>{author}</h1>
+            <img class="w-[20px] ml-2" src="/icons/verify.svg" alt="Verificado" />
         </div>
     </div>
     <div class="my-4 relative w-full">
-        <img class="rounded-[30px] w-full" id={`post-image-${id}`} src={postImage} alt="Post image" />
-        <h2 class="absolute top-0 right-0 m-3 bg-black rounded-full p-2 px-6 border-2 text-sm" id={`post-date-${id}`}>
+        <img
+            class="rounded-[30px] w-full"
+            id={`post-image-${id}`}
+            src={postImage}
+            alt="Post image"
+        />
+        <h2
+            class="absolute top-0 right-0 m-3 bg-black rounded-full p-2 px-6 border-2 text-sm"
+            id={`post-date-${id}`}
+        >
             {date}
         </h2>
     </div>
     <ul>
         <button id={`like-button-${id}`} class="flex items-center">
-            <img
-                class="w-[25px] mr-3"
-                src="/icons/love.svg"
-            />
+            <img class="w-[25px] mr-3" src="/icons/love.svg" />
             <span id={`likes-count-${id}`}>{currentLikes}</span>
         </button>
     </ul>
