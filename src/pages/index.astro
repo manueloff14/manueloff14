@@ -15,7 +15,7 @@ async function loadData(type) {
 
     try {
         const response = await fetch(
-            "http://localhost:4321/database.json"
+            "https://manueloff14.vercel.app/database.json"
         );
         const data = await response.json();
         console.log(`Data fetched for ${type}:`, data);
