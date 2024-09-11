@@ -15,7 +15,7 @@ async function loadData(type) {
 
     try {
         const response = await fetch(
-            "https://dyt.pythonanywhere.com/static/data/data.json"
+            "http://localhost:4321/database.json"
         );
         const data = await response.json();
         console.log(`Data fetched for ${type}:`, data);
@@ -38,7 +38,7 @@ console.log("Posts loaded:", posts);
 console.log("Projects loaded:", projects);
 ---
 
-<Layout title="Jose Gelves">
+<Layout title="Manuel Cabrera">
     <main class="lg:flex">
         <aside class="bg-[#1b1b1b] z-[100] w-full lg:w-[330px] lg:fixed">
             <Header />

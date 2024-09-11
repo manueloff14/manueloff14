@@ -1,0 +1,20 @@
+{
+    "post-1": {
+        "author": "Manuel Cabreraa",
+        "authorImage": "https://manueloff14.vercel.app/img/foto_manuel_cabrera.jpeg",
+        "date": "11 September 2024, 10:30 p.m.",
+        "postImage": "https://cdn.dribbble.com/users/1788965/screenshots/17000563/media/ead6692ef2ceab36459a0214a543a166.png?resize=400x300&vertical=center",
+        "description": "I’m excited to introduce Cumbre.icu, a web search engine designed to help people in Colombia quickly and efficiently find job opportunities. This project is the culmination of many hours of hard work, aimed at making employment more accessible across the country. I hope you find it useful!",
+        "likes": 123,
+        "github": "https://cumbre.icu"
+    },
+    "post-2": {
+        "author": "Manuel Cabrera",
+        "authorImage": "https://manueloff14.vercel.app/img/foto_manuel_cabrera.jpeg",
+        "date": "10 August 2024, 10:30 p.m.",
+        "postImage": "https://cdn.dribbble.com/users/1788965/screenshots/17000563/media/ead6692ef2ceab36459a0214a543a166.png?resize=400x300&vertical=center",
+        "description": "This is my portfolio, and I’m proud to finally share it with you all. It’s a reflection of my hard work, dedication, and passion for what I do. I hope you enjoy exploring it as much as I enjoyed creating it!",
+        "likes": 123,
+        "github": "https://manueloff14.vercel.app"
+    }
+}
