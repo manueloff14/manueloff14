@@ -21,7 +21,7 @@ const db = [
         "author": "Manuel Cabrera",
         "authorImage": "./img/foto_manuel_cabrera.jpeg",
         "date": "10 Aug 2024, 10:30 p.m.",
-        "postImage": "./img/mock-cumbre-inicio.png",
+        "postImage": "./img/mock-portfolio.png",
         "description": "This is my portfolio, and I’m proud to finally share it with you all. It’s a reflection of my hard work, dedication, and passion for what I do. I hope you enjoy exploring it as much as I enjoyed creating it!",
         "likes": 0,
         "github": "https://manueloff14.vercel.app"
