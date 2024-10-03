@@ -1,41 +1,13 @@
 ---
+// Importaciones
 import Layout from "../layouts/MainLayout.astro";
 import Header from "../components/Header.astro";
-import PostPanel from "../layouts/PostPanel.astro";
-import ProjectPanel from "../layouts/ProjectPanel.astro";
 import AboutPanel from "../layouts/AboutPanel.astro";
 import Menu from "../components/Menu.astro";
 import Footer from "../components/Footer.astro";
-
-let posts = [];
-let projects = [];
-
-async function loadData(type) {
-    console.log(`Starting to load ${type}...`);
-
-    try {
-        const response = await fetch(
-            "https://manueloff14.vercel.app/database.json"
-        );
-        const data = await response.json();
-        console.log(`Data fetched for ${type}:`, data);
-
-        return Object.entries(data).map(([id, item]) => ({
-            id,
-            ...item,
-        }));
-    } catch (err) {
-        console.error(`Failed to fetch ${type} data:`, err);
-        return [];
-    }
-}
-
-// Cargar los datos antes de renderizar la página
-posts = await loadData("posts");
-projects = await loadData("projects");
-
-console.log("Posts loaded:", posts);
-console.log("Projects loaded:", projects);
+import db from "../../public/database.js";
+import PostPanel from "../layouts/PostPanel.astro";
+import ProjectPanel from "../layouts/ProjectPanel.astro";
 ---
 
 <Layout title="Manuel Cabrera">
@@ -46,36 +18,15 @@ console.log("Projects loaded:", projects);
         <div
             class="w-full z-[10] p-7 pt-[260px] md:px-[100px] lg:ml-[330px] lg:px-[150px] lg:pt-0 xl:px-[250px]"
         >
-            <Menu />
+            <Menu num={db.length} />
             <div class="z-[10] space-y-8" id="content">
-                <PostPanel posts={posts} />
-                <ProjectPanel projects={projects} />
+                <PostPanel posts={db} />
+                <ProjectPanel projects={db} />
                 <AboutPanel />
             </div>
             <Footer />
         </div>
-    </main>
-
-    <script>
-        async function updatePanels() {
-            // Reemplazar completamente los datos de posts y projects
-            posts = await loadData("posts");
-            projects = await loadData("projects");
-    
-            console.log("Updating panels...");
-    
-            // Re-renderizar los paneles
-            const contentDiv = document.getElementById("content");
-    
-            contentDiv.innerHTML = `
-                ${PostPanel({ posts })}
-                ${ProjectPanel({ projects })}
-            `;
-        }
-    
-        // Llamar a updatePanels inmediatamente cuando se carga el script
-        updatePanels();
-    </script>    
+    </main>  
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
@@ -137,34 +88,5 @@ console.log("Projects loaded:", projects);
             // Activar el primer panel por defecto (por ejemplo, el panel de posts)
             activateButton("btnAll");
         });
-    </script>
-
-    <script>
-        // Function to update likes periodically
-        async function updateLikes() {
-            try {
-                const response = await fetch(
-                    "https://manueloff14.vercel.app/database.json"
-                );
-                const data = await response.json();
-
-                Object.entries(data).forEach(([id, post]) => {
-                    const likesCountElement = document.getElementById(
-                        `likes-count-${id}`,
-                    );
-                    if (
-                        likesCountElement &&
-                        post.likes !== parseInt(likesCountElement.textContent)
-                    ) {
-                        likesCountElement.textContent = post.likes;
-                    }
-                });
-            } catch (err) {
-                console.error("Failed to update likes:", err);
-            }
-        }
-
-        // Call updateLikes every 5 seconds
-        setInterval(updateLikes, 5000);
     </script>
 </Layout>

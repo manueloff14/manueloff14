@@ -11,9 +11,9 @@ const { posts } = Astro.props;
 <div id="panel-posts">
     <br>
     {posts.length > 0 ? (
-        posts.map((post) => (
+        posts.map((post, index) => (
             <PostCard
-                id={post.id}
+                id={index}
                 author={post.author}
                 authorImage={post.authorImage}
                 date={post.date}

@@ -16,7 +16,7 @@ let currentLikes = likes;
 
 <div
     data-post-id={`${id}`}
-    class="p-5 border border-gray-700 rounded-[20px] mb-5"
+    class="like-btns p-5 border border-gray-700 rounded-[20px] mb-5"
     id={`post-element-${id}`}
 >
     <div class="flex items-center">
@@ -45,58 +45,7 @@ let currentLikes = likes;
             {date}
         </h2>
     </div>
-    <ul>
-        <button id={`like-button-${id}`} class="flex items-center">
-            <img class="w-[25px] mr-3" src="/icons/love.svg" />
-            <span id={`likes-count-${id}`}>{currentLikes}</span>
-        </button>
-    </ul>
     <div class="mt-4">
         <p id={`post-description-${id}`}>{description}</p>
     </div>
-
-    <script>
-        // Selecciona todos los elementos con el atributo `data-post-id`
-        let postElements = document.querySelectorAll("[data-post-id]");
-
-        postElements.forEach((postElement) => {
-            let id = postElement.getAttribute("data-post-id");
-            let btnLike = document.getElementById(`like-button-${id}`);
-            let likesCountElement = document.getElementById(
-                `likes-count-${id}`,
-            );
-
-            console.log(btnLike);
-
-            async function clickLike() {
-                const settings = {
-                    method: "POST",
-                    headers: {
-                        Accept: "application/json",
-                        "Content-Type": "application/json",
-                    },
-                };
-                try {
-                    const fetchResponse = await fetch(
-                        `https://dyt.pythonanywhere.com/aumentar-like/${id}`,
-                        settings,
-                    );
-                    const data = await fetchResponse.json();
-                    console.log(data);
-
-                    // Actualiza el contador de likes en la interfaz de usuario
-                    if (data.likes !== undefined) {
-                        likesCountElement.textContent = data.likes;
-                    }
-
-                    return data;
-                } catch (e) {
-                    console.error(e);
-                    return e;
-                }
-            }
-
-            btnLike.addEventListener("click", clickLike);
-        });
-    </script>
 </div>
